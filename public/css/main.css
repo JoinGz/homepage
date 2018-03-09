@@ -1,0 +1,29 @@
+.pagebg{
+	background: url(../images/header.jpg);
+	background-size: cover;
+	height: 100vh;
+	color:#f7f7f7;
+	font-weight: 700;
+}
+.letterspace4{
+	letter-spacing: 4px;
+	font-size: 8rem;
+	margin: 35vh 0px 3vh;
+}
+.letterspace2{
+	letter-spacing: 2px;
+}
+.mynav{
+	background: #ecf0f1;
+	font-weight: 700;
+}
+.active{
+	transition: all 0.3s;
+}
+.font16{
+	font-size: 16px;
+}
+.gby{
+	letter-spacing: 2px;
+	font-weight: 900;
+}
