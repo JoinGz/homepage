@@ -1,30 +1,40 @@
 var path = require('path')
 var webpack = require('webpack')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const Build_Path = path.resolve(__dirname,'dist');
+var htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve(__dirname, "dist"),
+	filename: 'js/[name].js'
   },
   plugins: [
-		 new webpack.ProvidePlugin({
-        $: "jquery",
+		new webpack.ProvidePlugin({
+			$: "jquery",
             jQuery: "jquery",
             'window.$':'jquery',
             'window.jQuery':'jquery'
-    }),
-	  new CleanWebpackPlugin(
+		}),
+		new CleanWebpackPlugin(
             ['dist/main.*.js','dist/*.js','dist/css/*.*',],　 //匹配删除的文件
             {
                 root: __dirname,       　　　　　　　　　　//根目录
                 verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
                 dry:      false        　　　　　　　　　　//启用删除文件
             }
-        )
+        ),
+		new htmlWebpackPlugin({
+			filename: 'index.html', //指定文件名字
+			template: 'index.html', //关联打包模版index.html
+			inject: "head" //指定.js文件打包后放置的位置
+			//		,
+			//		minify: { // 压缩代码
+			//              removeComments: true, // 删除注释
+			//              collapseWhitespace: true // 删除空格
+			//          }
+		})
+		
 	],
 	module: {
 		loaders: [
