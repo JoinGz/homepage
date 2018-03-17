@@ -10,12 +10,6 @@ module.exports = {
 	filename: 'js/[name].js'
   },
   plugins: [
-		new webpack.ProvidePlugin({
-			$: "jquery",
-            jQuery: "jquery",
-            'window.$':'jquery',
-            'window.jQuery':'jquery'
-		}),
 		new CleanWebpackPlugin(
             ['dist/main.*.js','dist/*.js','dist/css/*.*',],　 //匹配删除的文件
             {
@@ -38,16 +32,7 @@ module.exports = {
 	],
 	module: {
 		loaders: [
-			{
-				test: require.resolve('jquery'),
-				use: [{
-				loader: 'expose-loader',
-				options: 'jQuery'
-				},{
-				loader: 'expose-loader',
-				options: '$'
-				}]
-			},
+			
 			{
 				test: /\.jsx?$/,
 				exclude: __dirname + '/node_modules/', //排除这个文件，加快速度
