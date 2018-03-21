@@ -59,3 +59,12 @@
 	margin-top: 100px;
 	background-color: #f8f8f8;
 }
+.foot{
+	padding: 40px 0;
+}
+.foot a:nth-of-type(1){
+	margin-right: 10px;
+}
+.re5{
+	font-size: 5rem;
+}
