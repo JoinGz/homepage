@@ -1,3 +1,10 @@
+img {
+		max-width: 100%;
+	}	
+.img {
+		width: 150px;	
+		margin: 40px 0px 0px 0px;
+	}
 .pagebg{
 	background: url(../images/header.jpg);
 	background-size: cover;
@@ -60,11 +67,33 @@
 	background-color: #f8f8f8;
 }
 .foot{
-	padding: 40px 0;
+	height:400px;
+	padding:130px 0;
+	
+}
+.foot a{
+	color:#ccc;
+}
+.foot a:hover{
+	text-decoration:none;
+	color:#eee;
 }
 .foot a:nth-of-type(1){
 	margin-right: 10px;
 }
 .re5{
-	font-size: 5rem;
+	font-size: 4rem;
 }
+.footbg{
+	background:url("../images/ican.jpg");
+	background-size:cover;
+	background-repeat:no-repeat;
+}
+@media screen and (min-width: 1366px) {
+				.footbg{
+						background:url("../images/ican.png");
+						background-size: cover;
+						background-repeat: no-repeat;
+				}
+				
+			}

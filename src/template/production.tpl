@@ -6,7 +6,7 @@
 				
 					<div class="col-sm-6 text-center <%=works[i].class%>">
 						<a href="<%=works[i].demoURL%>">
-							<!--<img src="./dist/public/images/taobao.png" />-->
+							<img src="<%=works[i].img%>" />
 						</a>
 
 					</div>

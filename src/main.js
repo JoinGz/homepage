@@ -42,7 +42,7 @@ document.querySelector("#works").innerHTML = production.tpl({
 			demoURL:"www.taobao.com",
 			githubURL:"www.baidu.com",
 			description: "用Vue构建项目，用到了Vue-router,用到了Vuex,用webpack构建啦！",
-			img:"./images/logo.png"
+			img:"./images/taobao.png"
 		},{
 			mt:"",
 			title: "M4A1 WebApp",
@@ -50,7 +50,7 @@ document.querySelector("#works").innerHTML = production.tpl({
 			demoURL:"www.taobao.com",
 			githubURL:"www.baidu.com",
 			description: "用Vue构建项目，用到了Vue-router,用到了Vuex,用webpack构建啦！",
-			img:"./images/logo.png"
+			img:"./images/ipad.png"
 		},
 		]
 	})
