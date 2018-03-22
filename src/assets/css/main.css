@@ -1,9 +1,12 @@
 img {
 		max-width: 100%;
+		max-height:600px;
 	}	
 .img {
 		width: 150px;	
 		margin: 40px 0px 0px 0px;
+		min-height:150px;
+		
 	}
 .pagebg{
 	background: url(../images/header.jpg);
@@ -68,7 +71,7 @@ img {
 }
 .foot{
 	height:400px;
-	padding:130px 0;
+	padding-top:200px;
 	
 }
 .foot a{
