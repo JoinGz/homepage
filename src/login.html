@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" type="text/css" href="./public/css/bootstrap.min.css" />
+		<script src="./public/js/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="./public/js/bootstrap.min.js"></script>
+		<title>注册页面</title>
+	</head>
+
+	<body>
+		<div class="container">
+			<div style="max-width: 600px;">
+				<h3>欢迎加入</h3>
+				<div class="form-group">
+					<label>帐号</label>
+					<input class="form-control" id="user">
+					<p class="help-block">账号长度大于4位，不能有空格</p>
+				</div>
+				<div class="form-group">
+					<label>密码</label>
+					<input class="form-control" type="password" id="key">
+					<p class="help-block">这里是块级帮助文本的实例。</p>
+				</div>
+				<div class="form-group">
+					<label>确认密码</label>
+					<input class="form-control" type="password" id="keytwo">
+					<p class="help-block">这里是块级帮助文本的实例。</p>
+				</div>
+				<div class="form-group">
+					<label>一切ok!GO!</label>
+					<div class="btn btn-danger btn-block">注册</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script>
+		$(document).ready(function() {
+			var userREG = /^\w{4,12}$/;
+			var keyREG = /^\w{6,16}$/;
+			var samekey = null;
+			var userok = null;
+			var keyok = null;
+			var keykey = null;
+
+			function login(id, html) {
+				$(id).on("input propertychange", function() {
+					if(this.type === "password") {
+						keyok = false;
+						keykey = false;
+						$("#keytwo").val("");
+						$("#keytwo").parent().removeClass("has-success has-error").addClass("has-error");
+						$("#keytwo").siblings("p").html("再次输入密码");
+					} else {
+						userok = false;
+					}
+					if(userREG.test(this.value)) {
+						$(this).siblings("p").html("格式正确");
+						$(this).parent().addClass("has-success").removeClass("has-error");
+						if(this.type === "password") {
+							samekey = this.value;
+							keyok = true;
+						} else {
+							userok = true;
+						}
+
+					} else {
+						$(this).siblings("p").html(html);
+						$(this).parent().removeClass("has-success").addClass("has-error");
+						if(this.type === "password") {
+							keyok = false;
+						} else {
+							userok = false;
+						}
+					}
+
+				});
+			}
+			login("#user", "账号长度4-12位，不能有空格");
+
+			//			$("#user").on("input propertychange", function() {
+			//				if(userREG.test(this.value)) {
+			//
+			//					$(this).siblings("p").html("格式正确");
+			//					$(this).parent().addClass("has-success").removeClass("has-error");
+			//				} else {
+			//					$(this).siblings("p").html("账号长度大于4位，不能有空格");
+			//					$(this).parent().removeClass("has-success").addClass("has-error");
+			//				}
+			//			});
+			login("#key", "密码长度6-16位，不能有空格");
+			//			$("#key").on("input propertychange", function() {
+			//				$("#keytwo").val("");
+			//				if(keyREG.test(this.value)) {
+			//					samekey = this.value;
+			//					$(this).siblings("p").html("格式正确");
+			//					$(this).parent().addClass("has-success").removeClass("has-error");
+			//				} else {
+			//					$(this).siblings("p").html("密码长度6-16位，不能有空格");
+			//					$(this).parent().removeClass("has-success has-error").addClass("has-error");
+			//				}
+			//			});
+
+			$("#keytwo").on("input propertychange", function() {
+				if(this.value === samekey) {
+					keykey =true ;
+					$(this).siblings("p").html("密码一致");
+					$(this).parent().addClass("has-success").removeClass("has-error");
+				} else {
+					keykey = false ;
+					$(this).siblings("p").html("两次密码不一致");
+					$(this).parent().removeClass("has-success has-error").addClass("has-error");
+				}
+			});
+			$(".btn-block").click(function() {
+				if(userok && keyok &&keykey) {
+					console.log("1")
+				}
+			})
+
+		})
+	</script>
+
+</html>

@@ -33,35 +33,23 @@ $(document).ready(function() {
 		}
 		]
 	})
-document.querySelector("#works").innerHTML = production.tpl({
-		
-		works: [{
-			mt:"mt100",
-			title: "淘宝项目",
-			class:"pull-right",
-			demoURL:"./taobao/index.html",
-			githubURL:"https://github.com/JoinGz/taobao",
-			description: "<p>1.此项目用GLUP构建</p><p>2.搜索框数据是淘宝真实API接口</p><p>3.其余数据用AJAX模拟真实使用环境，滑动到这一位置才加载。</p>",
-			img:"./images/taobao.png"
-		},{
-			mt:"",
-			title: "小游戏",
-			class:"",
-			demoURL:"./Game/index.html",
-			githubURL:"https://github.com/JoinGz/samllGame",
-			description: "一个小小的游戏。<p>用了TO DO LIST的小VUE引用。</p>",
-			img:"./images/ipad.png"
-		},
-		{
-			mt:"",
-			title: "Vue WebApp",
-			class:"pull-right",
-			demoURL:"./music-player/index.html",
-			githubURL:"https://github.com/JoinGz/taobao",
-			description: "用Vue构建项目，用到了Vue-router+Vuex+webpack+axios+Vue-cli,用Vue全家桶构建。<p>一个音乐WebAPP</p><p>歌词界面，音量调整，控制进度等等</p>",
-			img:"./images/player.png"
-		}
-		]
-	})
 
+	var learnedTop = $("#learned").offset().top;
+	var learnedWidth = $("#learned").outerHeight();
+	var windowHeight = $(window).height();
+	var bool = true;
+	$(window).scroll(function(){
+		var scrollTOP = $(document).scrollTop();
+		if(scrollTOP+windowHeight>learnedTop+learnedWidth/2){
+			if(bool){
+				$.ajax({url:"./API/data.php",success:function(data){
+					var ob=JSON.parse(data);
+					document.querySelector("#works").innerHTML = production.tpl(ob)
+				}})
+				
+				bool=false;
+			}
+			
+		}
+	})
 })
