@@ -13,7 +13,7 @@
 
 	<body>
 		<div class="container">
-			<div style="max-width: 600px;margin:0 auto;">
+			<div style="max-width: 600px;">
 				<h3>欢迎加入</h3>
 				<div class="form-group">
 					<label>帐号</label>
@@ -26,8 +26,13 @@
 					<p class="help-block">密码长度6-16位，不能有空格</p>
 				</div>
 				<div class="form-group">
+					<label>确认密码</label>
+					<input class="form-control" type="password" id="keytwo">
+					<p class="help-block">再次输入密码</p>
+				</div>
+				<div class="form-group">
 					<label>一切ok!GO!</label>
-					<div class="btn btn-danger btn-block">登录</div>
+					<div class="btn btn-danger btn-block">注册</div>
 				</div>
 
 			</div>
@@ -37,19 +42,26 @@
 		$(document).ready(function() {
 			var userREG = /^\w{4,12}$/;
 			var keyREG = /^\w{6,16}$/;
+			var samekey = null;
 			var userok = null;
 			var keyok = null;
+			var keykey = null;
 			var signup = false;
 
 			function login(id, html) {
 				$(id).on("input propertychange", function() {
-					$(".btn-block").html("登录");
+					$(".btn-block").html("注册")
 					if(this.type === "password") {
 						keyok = false;
+						keykey = false;
 						signup = false;
+						$("#keytwo").val("");
+						$("#keytwo").parent().removeClass("has-success has-error").addClass("has-error");
+						$("#keytwo").siblings("p").html("再次输入密码");
 						if(keyREG.test(this.value)) {
 							$(this).siblings("p").html("格式正确");
 							$(this).parent().addClass("has-success").removeClass("has-error");
+							samekey = this.value;
 							keyok = true;
 							signup = true;
 						} else {
@@ -77,29 +89,71 @@
 				});
 			}
 			login("#user", "账号长度4-12位，不能有空格");
+
+			//			$("#user").on("input propertychange", function() {
+			//				if(userREG.test(this.value)) {
+			//
+			//					$(this).siblings("p").html("格式正确");
+			//					$(this).parent().addClass("has-success").removeClass("has-error");
+			//				} else {
+			//					$(this).siblings("p").html("账号长度大于4位，不能有空格");
+			//					$(this).parent().removeClass("has-success").addClass("has-error");
+			//				}
+			//			});
 			login("#key", "密码长度6-16位，不能有空格");
+			//			$("#key").on("input propertychange", function() {
+			//				$("#keytwo").val("");
+			//				if(keyREG.test(this.value)) {
+			//					samekey = this.value;
+			//					$(this).siblings("p").html("格式正确");
+			//					$(this).parent().addClass("has-success").removeClass("has-error");
+			//				} else {
+			//					$(this).siblings("p").html("密码长度6-16位，不能有空格");
+			//					$(this).parent().removeClass("has-success has-error").addClass("has-error");
+			//				}
+			//			});
+
+			$("#keytwo").on("input propertychange", function() {
+				if(this.value === samekey) {
+					keykey = true;
+					$(this).siblings("p").html("密码一致");
+					$(this).parent().addClass("has-success").removeClass("has-error");
+				} else {
+					keykey = false;
+					$(this).siblings("p").html("两次密码不一致");
+					$(this).parent().removeClass("has-success has-error").addClass("has-error");
+				}
+			});
 			$(".btn-block").click(function() {
-				if(userok && keyok ) {
+				if(userok && keyok && keykey) {
 					if(signup) {
 						$(".btn-block").html("已发送请等待...")
 						$.ajax({
 							type: "POST",
-							url: "./API/login.php",
+							url: "./API/signup.php",
 							async: true,
 							data: {
 								name: $("#user").val(),
-								password: $("#key").val()
+								password: $("#keytwo").val()
 							},
 							success: function(data) {
-								if(data == "成功") {
-									$("body").html("<h1>登录成功</h1>");
+								if(data == "注册成功") {
+									var t = 3;
 									
-								}else{
-									alert("No User")
+									$("body").html("<h1>注册成功，"+ t +"秒后跳转到登录页</h1>");
+									setTimeout(function(){
+										window.open("./login.html","_self")
+									},3000);
+									var x = setInterval(function(){
+										t--;
+										$("body").html("<h1>注册成功，"+ t +"秒后跳转到登录页</h1>");
+										if(t<0){
+											clearInterval(x);
+										}
+									},1000)
 								}
 							}
 						});
-					console.log(11)
 					}
 
 					signup = false;
